@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#060c24">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Management Général</title>
+<style>
+:root{--c:#0a1230;--c2:#ffd84d;--bg:#0a1230;--card:#131f4d;--card2:#1b2a63;--line:#34457f;--ok:#4cd964;--ko:#ff6b6b;--tx:#ffd84d;--tx2:#ffe98f;--mut:#c9b45a}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--tx);line-height:1.6;padding-bottom:64px}
+b,strong{color:#fff3b0}
+a{color:var(--tx2)}
+header{position:sticky;top:0;z-index:5;background:#060c24;color:var(--tx);display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid var(--line)}
+header h1{font-size:1.05rem;margin:0;font-weight:600;flex:1}
+#back{background:none;border:0;color:var(--tx);font-size:1.4rem;padding:0 6px}
+main{max-width:860px;margin:0 auto;padding:12px}
+nav{position:fixed;bottom:0;left:0;right:0;background:#060c24;border-top:1px solid var(--line);display:flex;z-index:5}
+nav a{flex:1;text-align:center;padding:10px 4px;font-size:.78rem;color:var(--mut);text-decoration:none}
+nav a.on{color:var(--tx);font-weight:700;border-top:3px solid var(--tx);padding-top:7px}
+.card{background:var(--card);border-radius:12px;padding:14px;margin:10px 0;border:1px solid var(--line)}
+.lvl{font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--mut);margin-bottom:4px}
+.chap{display:flex;gap:12px;align-items:center;text-decoration:none;color:inherit}
+.num{background:var(--tx);color:#0a1230;border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;font-weight:700;flex:none}
+.chap.off{opacity:.55}
+.bar{height:6px;background:var(--card2);border-radius:3px;margin-top:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--tx)}
+.tabs{display:flex;gap:6px;overflow-x:auto;margin-bottom:8px}
+.tabs a{white-space:nowrap;padding:7px 12px;border-radius:18px;background:var(--card2);color:var(--tx);text-decoration:none;font-size:.85rem}
+.tabs a.on{background:var(--tx);color:#0a1230;font-weight:700}
+details{background:var(--card);border-radius:12px;margin:10px 0;border:1px solid var(--line)}
+summary{padding:13px 14px;font-weight:600;color:var(--tx);cursor:pointer}
+.body{padding:0 14px 12px}
+h3{color:#fff3b0;font-size:1rem;margin:16px 0 6px}
+h4{margin:12px 0 4px;font-size:.95rem;color:#fff3b0}
+.ex{background:#18285f;border-left:4px solid var(--tx);padding:8px 12px;margin:10px 0;border-radius:6px}
+.note{background:#2a2a14;border-left:4px solid #ff9f1a;padding:8px 12px;margin:10px 0;border-radius:6px}
+table{border-collapse:collapse;width:100%;font-size:.88rem;margin:8px 0;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{background:var(--card2);color:#fff3b0}
+.ar{direction:rtl;unicode-bidi:isolate;font-size:1.05em}
+button.ch,button.vf{display:block;width:100%;text-align:left;margin:6px 0;padding:10px 12px;border:1px solid var(--line);background:var(--card2);color:var(--tx);border-radius:10px;font-size:.95rem}
+button.vf{display:inline-block;width:48%}
+button.ok{background:#12401f;border-color:var(--ok)}
+button.ko{background:#4a1520;border-color:var(--ko)}
+.fb{margin-top:8px;padding:8px 10px;border-radius:8px;background:var(--card2);font-size:.9rem}
+.btn{background:var(--tx);color:#0a1230;border:0;padding:10px 16px;border-radius:10px;font-size:.95rem;font-weight:600;margin:6px 4px 6px 0}
+.btn.sec{background:var(--card2);color:var(--tx);border:1px solid var(--line)}
+input[type=search]{width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;font-size:1rem;background:var(--card2);color:var(--tx)}
+input[type=search]::placeholder{color:var(--mut)}
+.big{font-size:2rem;font-weight:700;color:var(--tx)}
+.timer{float:right;font-weight:700;color:var(--ko)}
+small.muted{color:var(--mut)}
+
+.tabs.wrap{flex-wrap:wrap;overflow:visible}
+textarea{width:100%;min-height:70px;padding:8px;border:1px solid var(--line);border-radius:10px;font-size:.95rem;background:var(--card2);color:var(--tx);font-family:inherit}
+textarea::placeholder{color:var(--mut)}
+.tools{border-top:1px dashed var(--line);margin-top:12px;padding-top:8px}
+.fav{background:var(--card2);color:var(--tx);border:1px solid var(--line);border-radius:18px;padding:6px 12px;font-size:.85rem;margin-bottom:6px}
+.fav.on{background:var(--tx);color:#0a1230;font-weight:700}
+mark{background:#ffd84d;color:#0a1230;border-radius:3px;padding:0 2px}
+.menu a.item{display:flex;gap:12px;align-items:center;text-decoration:none;color:var(--tx);padding:2px 0}
+.menu .ic{font-size:1.5rem;width:38px;text-align:center}
+#splash{position:fixed;inset:0;z-index:99;background:#0a1230;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .6s ease;cursor:pointer}
+#splash.off{opacity:0;pointer-events:none}
+#splash img{width:min(46vw,200px);height:auto;animation:pop .9s ease-out both}
+#splash .sp-t{color:#ffd84d;font-weight:800;font-size:clamp(1.3rem,6vw,2rem);letter-spacing:.12em;text-align:center;animation:rise 1s .3s ease-out both}
+#splash .sp-s{color:#c9b45a;font-size:.85rem;animation:rise 1s .6s ease-out both}
+#gate{position:fixed;inset:0;z-index:98;background:#0a1230;display:flex;align-items:center;justify-content:center;padding:20px}
+.gbox{max-width:360px;width:100%;text-align:center}
+.gbox h2{color:#ffd84d;margin:10px 0 4px}
+.gbox input[type=password],.gbox input[type=text]{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;font-size:1.05rem;background:var(--card2);color:var(--tx);text-align:center}
+.gl{display:block;margin:8px 0;font-size:.85rem;color:var(--mut)}
+.ge{color:var(--ko);min-height:1.4em}
+@keyframes pop{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<div id="splash"><img src="icon-512.png" alt="Logo"><div class="sp-t">MAHFOUD'S APK</div><div class="sp-s">Management Général · créé par Mahfoud</div></div>
+<header><button id="back" hidden aria-label="Retour">&#8592;</button><h1 id="title">Management Général</h1></header>
+<main id="app"><p style="padding:20px;color:#c9b45a">Chargement…</p></main>
+<nav id="nav">
+<a href="#/" data-k="home">Cours</a>
+<a href="#/exam" data-k="exam">Examen</a>
+<a href="#/gloss" data-k="gloss">Glossaire</a>
+<a href="#/prog" data-k="prog">Progrès</a>
+<a href="#/plus" data-k="plus">Plus</a>
+</nav>
+<script src="plan.js"></script>
+<script src="ch1.js"></script>
+<script src="ch2.js"></script>
+<script src="ch3.js"></script>
+<script src="ch4.js"></script>
+<script src="ch5.js"></script>
+<script src="ch6.js"></script>
+<script src="ch7.js"></script>
+<script src="ch8.js"></script>
+<script src="ch9.js"></script>
+<script src="ch10.js"></script>
+<script src="ch11.js"></script>
+<script src="acces.js"></script>
+<script src="app.js"></script>
+<script>(function(){var s=document.getElementById("splash");if(!s)return;function hide(){s.className="off";setTimeout(function(){if(s.parentNode)s.parentNode.removeChild(s)},700)}s.onclick=hide;setTimeout(hide,2800)})();</script>
+</body>
+</html>
